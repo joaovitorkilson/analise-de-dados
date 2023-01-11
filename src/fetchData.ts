@@ -1,5 +1,5 @@
 
-export default async function fetchData(url: string) {
+export default async function fetchData<T>(url: string): Promise<T | null> {
   
   try {
     const response = await fetch(url);
@@ -9,10 +9,11 @@ export default async function fetchData(url: string) {
     }
 
     const json = await response.json();
-    console.log(response)
+    
     return json;
     
   }  catch (error) {
+    if (error instanceof Error) console.error("fetchData: " + error);
     return null;
   }
   
